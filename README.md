@@ -26,3 +26,90 @@
 ![image](https://github.com/user-attachments/assets/f586fac5-3aca-42b2-822f-48eb55fe465e)
 
 
+Após a instalação dos arquivos acima foi feita a transcrição dos arquivos HTML e CSS para JSX.
+
+Segue abaixo as principais diferenças nas linguagens.
+
+
+Diferenças entre HTML/CSS e JSX
+
+Elemento Raiz Único: JSX exige um único elemento pai. Use <div> ou <> para envolver múltiplos elementos.
+
+JSX (Correto):
+
+JavaScript
+
+<div>
+  <h1>Título</h1>
+  <p>Parágrafo.</p>
+</div>
+Atributos vs. Propriedades: Atributos HTML com hífens viram camelCase em JSX (class vira className, for vira htmlFor).
+
+JSX:
+
+JavaScript
+
+<div className="container">
+  <label htmlFor="username">Nome:</label>
+  <input type="text" id="username" />
+</div>
+Expressões JavaScript: Insira código JS com {} dentro do JSX para lógica dinâmica.
+
+JSX:
+
+JavaScript
+
+const nome = "Usuário";
+return <p>Olá, {nome}!</p>;
+Estilos Inline: Use um objeto JavaScript (camelCase para propriedades CSS).
+
+JSX:
+
+JavaScript
+
+const estilo = { backgroundColor: 'blue', color: 'white' };
+return <div style={estilo}>Texto</div>;
+Comentários: Use {/* ... */} para comentários dentro do JSX.
+
+JSX:
+
+JavaScript
+
+<div>
+  {/* Comentário aqui */}
+  <p>Texto</p>
+</div>
+Auto-fechamento: Tags sem conteúdo precisam de auto-fechamento (<input />, <br />).
+
+JSX:
+
+JavaScript
+
+<input type="text" />
+Criação do Botão Login via JavaScript (React/JSX )
+JavaScript
+
+import Login from "./assets/pages/login";
+
+
+function App() {
+
+
+  return (
+    <>
+      <Login/>;
+      </>
+      )
+}
+
+      export default App;
+
+
+
+
+
+
+
+
+
+
