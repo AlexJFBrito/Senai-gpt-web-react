@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+/*.titulo {
+    font-size: 76px ;
+}
+
+#meutitulo {
+    font-size: 76px ;
+    
+} */
+
+
+
+.inpt {
+    padding: 10px;
+    /*Espacamento interno*/
+    border: none;
+    /*remove a borda*/
+    background-color: #f6f6f6;
+    border: 1px solid #ccc;
+    width: 377px;
+    margin-bottom: 16px;
+
+}
+
+.btn {
+
+    padding: 10px;
+    background-color: #935f5f;
+    color: white;
+    border: none;
+    width: 377px;
+    border-radius: 15px;
+    
+}
