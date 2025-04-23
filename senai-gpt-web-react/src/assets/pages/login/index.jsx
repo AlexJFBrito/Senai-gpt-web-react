@@ -8,6 +8,14 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const onLoginClick = async () => {
+
+    if (email == "" || password == "") {
+
+      alert("Falta o e-mail.");
+      return;
+
+    }
+
     let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
       headers: {
         "Content-Type": "application/json",
