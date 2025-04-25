@@ -84,7 +84,7 @@ function Login() {
           </div>
           <div className="login-container">
             <img className="logo" src={logo} alt="Senaigpt logo" />
-            <h1 style={{ fontSize: '76px' }} id="meutitulo" className="titulo">Login</h1>
+            <h1 style={{ fontSize: '76px' }} id="meutitulo" className=" login-titulo">Login</h1>
 
             <input
               className="inpt"
