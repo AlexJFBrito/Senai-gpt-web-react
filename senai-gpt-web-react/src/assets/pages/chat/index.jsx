@@ -104,40 +104,97 @@ function Chat() {
 
 }
 
+const enviarMensagem = async (message) => {
+ 
+  // Mostrar chat na tela.
+  let Mensagem = await chatGPT(message)
+  console.log("Mensagem", Mensagem);
 
-    const enviarMensagem = async(message) => {
+  let userId = localStorage.getItem("meuId");
 
-      let resposta = await chatGPT(message);
+  let novaMensagemUsuario = {
 
-      console.log("Resposta: " , resposta);
+      text: message,
+      id: crypto.randomUUID(),
+      userId: userId
 
-      const novaMensagemUsuario = {
+  };
 
-        userId: "userId" ,
-        text: message,
-        id: 10
-      };
+  let novoChatSelecionado = { ...chatSelecionado };
+  novoChatSelecionado.messages.push(novaMensagemUsuario);
+  setChatSelecionado(novoChatSelecionado);
 
+  let respostaGPT = await chatGPT(message);
 
-      const novaRespostaChatGPT = {
+  let novaMensagemGPT = {
 
-        userId: "chatbot" ,
-        text: resposta,
-        id: 10
-      };
+      text: respostaGPT,
+      id: crypto.randomUUID(),
+      userId: "chatbot"
 
+  };
 
+  novoChatSelecionado = { ...chatSelecionado };
+  novoChatSelecionado.messages.push(novaMensagemGPT);
+  setChatSelecionado(novoChatSelecionado);
 
-      let novoChatSelecionado = { ...chatSelecionado}; //copia chat selecionado
+  console.log("resposta", respostaGPT);
 
-      novoChatSelecionado.messages.push(novaMensagemUsuario); // adicioonando uma mensagem
-      novoChatSelecionado.messages.push(novaRespostaChatGPT); //adicionando uma mensagem 
+  let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats/" + chatSelecionado.id, {
+      method: "PUT",
+      headers: {
+          "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+          "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(
+          novoChatSelecionado
+      )
+  });
 
-  
+  if (response.ok == false) {
 
+      console.log("Salvar o chat deu errado.");
 
+  }
 
-    }
+}
+ const novoChat =  async() => {
+  let novoTitulo = prompt ("Insira o titulo do chat:");
+  if (novoTitulo == null || novoTitulo == "") {
+
+    alert("Insira um titulo");
+     return; // faz o codigo parar de ser executado
+  }
+
+  let userId = localStorage.getItem("meuId");
+
+ let nChat ={
+
+  chatTitle: novoTitulo,
+  id: crypto.randomUUID(),
+  userId: userId,
+  messages: [],
+
+ }
+ 
+ let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+  method: "POST",
+  headers: {
+      "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+      "Content-Type" : "application/json"
+  },
+  body: JSON.stringify(
+      nChat
+  )
+});
+
+if (response.ok) {
+
+  await getChats();
+}
+
+}
+
 
 
   return (
@@ -148,7 +205,7 @@ function Chat() {
 
           <div className="top">
 
-            <button className="btn-new-chat">+ New chat</button>
+            <button className="btn-new-chat"onClick={() => novoChat()} > + New chat</button>
 
             {chats.map(chat => (
               <button className="btn-chat" onClick={() => clickChat(chat)}>
@@ -305,7 +362,7 @@ function Chat() {
              
              />
 
-            <img onClick={() => enviarMensagem()} src= {Send} 
+            <img onClick={() => enviarMensagem(userMessage)} src= {Send} 
             alt="Send." />
 
           </div>
